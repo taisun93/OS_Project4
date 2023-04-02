@@ -33,7 +33,6 @@ static void ll_delete(mmapped_region *node, mmapped_region *prev)
 
 void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
-    return addr;
 
     if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
     {
@@ -50,14 +49,14 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
     // Fill the item
-    r->start_addr = (addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE));
+    addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE);
+    r->start_addr = addr;
     r->length = length;
     r->region_type = flags;
     r->offset = offset;
     r->prot = prot;
     r->next = 0;
 
-    // Handle first call to mmap
     if (p->nregions == 0)
     {
         p->region_head = r;
