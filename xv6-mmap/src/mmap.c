@@ -11,7 +11,7 @@
 #define MAP_ANONYMOUS 0
 #define MAP_FILE 1
 #define PROT_WRITE 1
-#define MMAPBASE 0x40000000
+#define MMAPBASE 0x60000000
 
 int fdalloc(struct file *f)
 {
@@ -52,10 +52,10 @@ static void ll_delete(mmapped_region *node, mmapped_region *prev)
 void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
 {
     // Check argument inputs (only addr and length for now...)
-    if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
-    {
-        return (void *)-1;
-    }
+    // if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
+    // {
+    //     return (void *)-1;
+    // }
 
     // Get pointer to current process
     struct proc *p = myproc();
@@ -67,10 +67,11 @@ void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
 
     // Allocate a new region for our mmap (w/ kmalloc)
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
-    if (r == NULL)
-    {
-        return (void *)-1;
-    }
+    
+    // if (r == NULL)
+    // {
+    //     return (void *)-1;
+    // }
 
     // Assign list-data and meta-data to the new region
     r->start_addr = (addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE));
@@ -81,30 +82,30 @@ void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
     r->next = 0;
 
     // Check the flags and file descriptor argument (flags, fd)
-    if (flags == MAP_ANONYMOUS)
-    {
-        if (fd != -1) // fd must be -1 in this case (mmap man page sugestion for mobility)
-        {
-            kmfree(r);
-            return (void *)-1;
-        }
-        // do not set r->fd. Not needed for Anonymous mmap
-    }
-    else if (flags == MAP_FILE)
-    {
-        if (fd > -1)
-        {
-            if ((fd = fdalloc(p->ofile[fd])) < 0)
-                return (void *)-1;
-            filedup(p->ofile[fd]);
-            r->fd = fd;
-        }
-        else
-        {
-            kmfree(r);
-            return (void *)-1;
-        }
-    }
+    // if (flags == MAP_ANONYMOUS)
+    // {
+    //     if (fd != -1) // fd must be -1 in this case (mmap man page sugestion for mobility)
+    //     {
+    //         kmfree(r);
+    //         return (void *)-1;
+    //     }
+    //     // do not set r->fd. Not needed for Anonymous mmap
+    // }
+    // else if (flags == MAP_FILE)
+    // {
+    //     if (fd > -1)
+    //     {
+    //         if ((fd = fdalloc(p->ofile[fd])) < 0)
+    //             return (void *)-1;
+    //         filedup(p->ofile[fd]);
+    //         r->fd = fd;
+    //     }
+    //     else
+    //     {
+    //         kmfree(r);
+    //         return (void *)-1;
+    //     }
+    // }
 
     // Handle first call to mmap
     if (p->nregions == 0)
