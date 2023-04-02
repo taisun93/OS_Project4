@@ -11,7 +11,7 @@
 #define MAP_ANONYMOUS 0
 #define MAP_FILE 1
 #define PROT_WRITE 1
-#define MMAPBASE 0x60000000
+#define MMAPBASE 0x10000000
 
 int fdalloc(struct file *f)
 {
@@ -67,11 +67,6 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Allocate a new region for our mmap (w/ kmalloc)
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
-    
-    // if (r == NULL)
-    // {
-    //     return (void *)-1;
-    // }
 
     // Assign list-data and meta-data to the new region
     r->start_addr = (addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE));
@@ -91,7 +86,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     p->nregions++;
     r->start_addr = addr;
 
-    return -addr;
+    return addr;
 }
 
 int munmap(void *addr, int length)
