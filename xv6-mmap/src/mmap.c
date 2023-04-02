@@ -5,7 +5,7 @@
 #include "param.h"
 #include "memlayout.h"
 #include "mmu.h"
-#include "mman.h"
+// #include "mman.h"
 #include "proc.h"
 
 
