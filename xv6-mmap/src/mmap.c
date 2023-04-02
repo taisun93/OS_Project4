@@ -51,11 +51,12 @@ static void ll_delete(mmapped_region *node, mmapped_region *prev)
 
 void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
-    // Check argument inputs (only addr and length for now...)
-    // if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
-    // {
-    //     return (void *)-1;
-    // }
+    return (void *) 1;
+
+    if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
+    {
+        return (void *)-1;
+    }
 
     // Get pointer to current process
     struct proc *p = myproc();
