@@ -167,8 +167,6 @@ int             fetchint(uint, int*);
 int             fetchstr(uint, char**);
 void            syscall(void);
 
-// sysfile.c
-int             fdalloc(struct file*);
 
 // timer.c
 void            timerinit(void);
@@ -199,7 +197,6 @@ void            switchuvm(struct proc*);
 void            switchkvm(void);
 int             copyout(pde_t*, uint, void*, uint);
 void            clearpteu(pde_t *pgdir, char *uva);
-int             mappages(pde_t*, void*, uint, uint, int); 
-// pte_t*          walkpgdir(pde_t*, const void*, int); 
+
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))
