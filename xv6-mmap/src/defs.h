@@ -164,9 +164,6 @@ int             fetchint(uint, int*);
 int             fetchstr(uint, char**);
 void            syscall(void);
 
-// sysfile.c
-int             fdalloc(struct file*);
-
 // timer.c
 void            timerinit(void);
 
