@@ -12,6 +12,7 @@
 #define MAP_ANONYMOUS   0
 #define MAP_FILE        1
 #define PROT_WRITE      1
+#define MMAPBASE 0x40000000
 
 void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
 {
