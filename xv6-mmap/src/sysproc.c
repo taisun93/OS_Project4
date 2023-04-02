@@ -91,7 +91,7 @@ sys_uptime(void)
 }
 
 int
-kmalloc(void)
+sys_kmalloc(void)
 {
   int nbytes;
 
@@ -102,7 +102,7 @@ kmalloc(void)
 }
 
 int
-kmfree(void)
+sys_kmfree(void)
 {
   int addr;
 
