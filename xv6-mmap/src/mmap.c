@@ -11,22 +11,6 @@
 #define PROT_WRITE 1
 #define MMAPBASE 0x10000000
 
-int fdalloc(struct file *f)
-{
-    int fd;
-    struct proc *curproc = myproc();
-
-    for (fd = 0; fd < NOFILE; fd++)
-    {
-        if (curproc->ofile[fd] == 0)
-        {
-            curproc->ofile[fd] = f;
-            return fd;
-        }
-    }
-    return -1;
-}
-
 static void ll_delete(mmapped_region *node, mmapped_region *prev)
 {
     if (node == myproc()->region_head)
@@ -81,9 +65,8 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Increment region count and retrun the new region's starting address
     p->nregions++;
-    r->start_addr = addr;
 
-    return addr;
+    return r->start_addr;
 }
 
 int munmap(void *addr, int length)
