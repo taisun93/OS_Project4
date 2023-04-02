@@ -74,8 +74,8 @@ void*           kmalloc(uint);
 void            kmfree(void*);
 
 //mmap.c
-void*           mmap(void *, uint, int, int, int, int);
-int             munmap(void *, uint);
+void*           mmap(void *, int, int, int, int, int);
+int             munmap(void *, int);
 
 // kbd.c
 void            kbdintr(void);
