@@ -9,7 +9,7 @@
 
 #define NULL (mmapped_region *)0
 #define PROT_WRITE 1
-#define MMAPBASE 0x10000000
+#define MMAPBASE 0x40000000
 
 static void ll_delete(mmapped_region *node, mmapped_region *prev)
 {
@@ -46,10 +46,10 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     // Expand process size
     p->sz = p->sz + length;
 
-    // Allocate a new region for our mmap 
+    // new item in linked list
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
-    // Assign list-data and meta-data to the new region
+    // Fill the item
     r->start_addr = (addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE));
     r->length = length;
     r->region_type = flags;
