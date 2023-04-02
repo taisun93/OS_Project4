@@ -44,6 +44,19 @@ enum procstate
   ZOMBIE
 };
 
+typedef struct mmapped_region
+{
+  // Linked-List pointers
+  struct mmapped_region *next;
+
+  // Region Meta-Data:
+  void *start_addr; // starting address for mapped region
+  uint length;      // length of allocated region
+  int region_type;  // anonymous of file-backed
+  int offset;       // offset in a file-backed allocation
+  int fd;           // file descriptor (-1 for anonymous allocation)
+  int prot;         // protection bits for the mapped region (default is read-only)
+} mmapped_region;
 // Per-process state
 struct proc
 {
@@ -69,17 +82,3 @@ struct proc
 //   original data and bss
 //   fixed-size stack
 //   expandable heap
-
-typedef struct mmapped_region
-{
-  // Linked-List pointers
-  struct mmapped_region *next;
-
-  // Region Meta-Data:
-  void *start_addr; // starting address for mapped region
-  uint length;      // length of allocated region
-  int region_type;  // anonymous of file-backed
-  int offset;       // offset in a file-backed allocation
-  int fd;           // file descriptor (-1 for anonymous allocation)
-  int prot;         // protection bits for the mapped region (default is read-only)
-} mmapped_region;
