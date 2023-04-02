@@ -12,7 +12,9 @@
 // #define NULL (mmapped_region*)0
 
 void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
-{}
+{
+    return (void*)-1; 
+}
 
 int munmap(void *addr, uint length)
 {
