@@ -91,7 +91,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     p->nregions++;
     r->start_addr = addr;
 
-    return addr;
+    return -addr;
 }
 
 int munmap(void *addr, int length)
