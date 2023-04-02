@@ -117,12 +117,12 @@ sys_kmfree(void)
 int
 sys_mmap(void)
 {
-  int addr;
-  int length;
-  int prot;
-  int flags;
-  int fd;
-  int offset;
+  // int addr;
+  // int length;
+  // int prot;
+  // int flags;
+  // int fd;
+  // int offset;
 
   // if(argint(0, &addr) < 0)
   // {
