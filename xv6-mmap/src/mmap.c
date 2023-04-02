@@ -5,11 +5,13 @@
 #include "param.h"
 #include "memlayout.h"
 #include "mmu.h"
-// #include "mman.h"
 #include "proc.h"
 
 
-// #define NULL (mmapped_region*)0
+#define NULL (mmapped_region*)0
+#define MAP_ANONYMOUS   0
+#define MAP_FILE        1
+#define PROT_WRITE      1
 
 void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
 {
