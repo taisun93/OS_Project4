@@ -248,7 +248,7 @@ int msync (void* start_addr, uint length)
   }
 
   // Travese our mmap dll to see if address and length are valid
-  mmapped_region *cursor = p->region_head;
+//   mmapped_region *cursor = p->region_head;
 
 //   while(cursor)
 //   {
