@@ -69,8 +69,19 @@ void            kfree(char*);
 void            kinit1(void*, void*);
 void            kinit2(void*, void*);
 
+//mmap.c
+
+void*           mmap(void *, uint, int, int, int, int);
+int             munmap(void *, uint);
+int             msync(void*, uint);
+void            free_mmap_ll(void);
+
 // kbd.c
 void            kbdintr(void);
+
+//kmalloc.c
+void*           kmalloc(uint);
+void            kmfree(void*);
 
 // lapic.c
 void            cmostime(struct rtcdate *r);
