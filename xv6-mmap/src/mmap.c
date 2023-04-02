@@ -250,24 +250,24 @@ int msync (void* start_addr, uint length)
   // Travese our mmap dll to see if address and length are valid
   mmapped_region *cursor = p->region_head;
 
-  while(cursor)
-  {
-    if(cursor->start_addr == start_addr && cursor->length == length)
-    {
-      // Make sure that the address was actually allocated
-      pte_t* ret = walkpgdir(p->pgdir, start_addr, 0);
-      if((uint)ret & PTE_D)
-      {
-        //do not write back non-dirty pages
-      }
+//   while(cursor)
+//   {
+//     if(cursor->start_addr == start_addr && cursor->length == length)
+//     {
+//       // Make sure that the address was actually allocated
+//       pte_t* ret = walkpgdir(p->pgdir, start_addr, 0);
+//       if((uint)ret & PTE_D)
+//       {
+//         //do not write back non-dirty pages
+//       }
 
-      fileseek(p->ofile[cursor->fd], cursor->offset);
-      filewrite(p->ofile[cursor->fd], start_addr, length);
-      return 0;
-    }
+//       fileseek(p->ofile[cursor->fd], cursor->offset);
+//       filewrite(p->ofile[cursor->fd], start_addr, length);
+//       return 0;
+//     }
 
-    cursor = cursor->next;
-  }
+//     cursor = cursor->next;
+//   }
 
   // If we went through the whole ll without finding a match
   return -1;
