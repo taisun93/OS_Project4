@@ -8,8 +8,6 @@
 #include "proc.h"
 
 #define NULL (mmapped_region *)0
-#define MAP_ANONYMOUS 0
-#define MAP_FILE 1
 #define PROT_WRITE 1
 #define MMAPBASE 0x10000000
 
@@ -51,6 +49,7 @@ static void ll_delete(mmapped_region *node, mmapped_region *prev)
 
 void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
+    return addr;
 
     if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
     {
@@ -60,12 +59,10 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     // Get pointer to current process
     struct proc *p = myproc();
     uint oldsz = p->sz;
-    uint newsz = p->sz + length;
-
     // Expand process size
-    p->sz = newsz;
+    p->sz = p->sz + length;
 
-    // Allocate a new region for our mmap (w/ kmalloc)
+    // Allocate a new region for our mmap 
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
     // Assign list-data and meta-data to the new region
@@ -119,11 +116,6 @@ int munmap(void *addr, int length)
         p->nregions--;
 
         // close the file we were mapping to
-        if (p->region_head->region_type == MAP_FILE)
-        {
-            fileclose(p->ofile[p->region_head->fd]);
-            p->ofile[p->region_head->fd] = 0;
-        }
 
         if (p->region_head->next != 0)
         {
@@ -151,13 +143,6 @@ int munmap(void *addr, int length)
             p->sz = deallocuvm(p->pgdir, p->sz, p->sz - length);
             switchuvm(p);
             p->nregions--;
-
-            // close the file we were mapping to
-            if (next->region_type == MAP_FILE)
-            {
-                fileclose(p->ofile[next->fd]);
-                p->ofile[next->fd] = 0;
-            }
 
             /*remove the node from our ll*/
             size = next->next->length;
