@@ -25,7 +25,7 @@ int sleep(int);
 int uptime(void);
 
 void* kmalloc(int size);
-void* kmfree(int size);
+void kmfree(void* addr);
 
 
 // ulib.c
