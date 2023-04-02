@@ -25,6 +25,7 @@ int sleep(int);
 int uptime(void);
 
 void* kmalloc(int size);
+void* kmfree(int size);
 
 
 // ulib.c
