@@ -26,7 +26,8 @@ int uptime(void);
 
 void* kmalloc(int size);
 void kmfree(void* addr);
-
+void* mmap(void *addr, uint length, uint prot, uint flags, uint fd, uint offset);
+int munmap(void *addr, uint length);
 
 // ulib.c
 int stat(const char*, struct stat*);

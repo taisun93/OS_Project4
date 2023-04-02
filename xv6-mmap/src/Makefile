@@ -7,6 +7,7 @@ OBJS = \
 	ide.o\
 	ioapic.o\
 	kalloc.o\
+	mmap.o\
 	kbd.o\
 	lapic.o\
 	log.o\
@@ -253,6 +254,7 @@ EXTRA=\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
 	printf.c umalloc.c\
 	kmalloc.c\
+	mmap.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
 
