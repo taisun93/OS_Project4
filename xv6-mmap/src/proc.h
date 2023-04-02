@@ -51,7 +51,7 @@ typedef struct mmapped_region
 
   // Region Meta-Data:
   void *start_addr; // starting address for mapped region
-  uint length;      // length of allocated region
+  int length;      // length of allocated region
   int region_type;  // anonymous of file-backed
   int offset;       // offset in a file-backed allocation
   int fd;           // file descriptor (-1 for anonymous allocation)

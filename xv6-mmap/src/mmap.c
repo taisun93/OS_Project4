@@ -49,7 +49,7 @@ static void ll_delete(mmapped_region *node, mmapped_region *prev)
     kmfree(node);
 }
 
-void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
+void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
     // Check argument inputs (only addr and length for now...)
     // if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
@@ -112,32 +112,32 @@ void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
     {
         p->region_head = r;
     }
-    else // Add region to an already existing mapped_regions list
-    {
-        mmapped_region *cursor = p->region_head;
-        while (cursor->next != 0)
-        {
-            if (addr == cursor->start_addr)
-            {
-                addr += PGROUNDDOWN(PGSIZE + cursor->length);
-                cursor = p->region_head; // start over, we may overlap past regions now...
-            }
-            else if (addr == (void *)KERNBASE || addr > (void *)KERNBASE) // we've run out of memory!
-            {
-                kmfree(r);
-                return (void *)-1;
-            }
-            cursor = cursor->next;
-        }
-        // Catch the final node that isn't checked in the loop
-        if (addr == cursor->start_addr)
-        {
-            addr += PGROUNDDOWN(PGSIZE + cursor->length);
-        }
+    // else // Add region to an already existing mapped_regions list
+    // {
+    //     mmapped_region *cursor = p->region_head;
+    //     while (cursor->next != 0)
+    //     {
+    //         if (addr == cursor->start_addr)
+    //         {
+    //             addr += PGROUNDDOWN(PGSIZE + cursor->length);
+    //             cursor = p->region_head; // start over, we may overlap past regions now...
+    //         }
+    //         else if (addr == (void *)KERNBASE || addr > (void *)KERNBASE) // we've run out of memory!
+    //         {
+    //             kmfree(r);
+    //             return (void *)-1;
+    //         }
+    //         cursor = cursor->next;
+    //     }
+    //     // Catch the final node that isn't checked in the loop
+    //     if (addr == cursor->start_addr)
+    //     {
+    //         addr += PGROUNDDOWN(PGSIZE + cursor->length);
+    //     }
 
-        // Add new region to the end of our mmapped_regions list
-        cursor->next = r;
-    }
+    //     // Add new region to the end of our mmapped_regions list
+    //     cursor->next = r;
+    // }
 
     // Increment region count and retrun the new region's starting address
     p->nregions++;
@@ -146,7 +146,7 @@ void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
     return r->start_addr;
 }
 
-int munmap(void *addr, uint length)
+int munmap(void *addr, int length)
 {
     // Sanity check on addr and length
     if (addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
