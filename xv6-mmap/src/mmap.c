@@ -56,18 +56,18 @@ void *mmap(void *addr, uint length, int prot, int flags, int fd, int offset)
     }
     else if (flags == MAP_FILE)
     {
-        // if (fd > -1)
-        // {
-        //   if((fd=fdalloc(p->ofile[fd])) < 0)
-        //     return (void*)-1;
-        //   filedup(p->ofile[fd]);
-        //   r->fd = fd;
-        // }
-        // else
-        // {
+        if (fd > -1)
+        {
+          if((fd=fdalloc(p->ofile[fd])) < 0)
+            return (void*)-1;
+          filedup(p->ofile[fd]);
+          r->fd = fd;
+        }
+        else
+        {
         kmfree(r);
         return (void *)-1;
-        // }
+        }
     }
 
     // Handle first call to mmap
