@@ -131,6 +131,11 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_kmalloc] sys_kmalloc,
+[SYS_kmfree]  sys_kmfree,
+[SYS_mmap]    sys_mmap,
+[SYS_munmap]  sys_munmap,
+[SYS_msync]   sys_msync,
 };
 
 void
