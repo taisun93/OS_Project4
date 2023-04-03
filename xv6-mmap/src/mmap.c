@@ -11,8 +11,7 @@
 
 void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
-    return (void *)28;
-
+    
     if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
     {
         return (void *)-1;
@@ -29,6 +28,8 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Fill the item
     addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE);
+    return (void *)(PGROUNDDOWN(oldsz) + MMAPBASE);
+
     r->start_addr = addr;
     r->length = length;
     r->region_type = flags;
