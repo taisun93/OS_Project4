@@ -21,7 +21,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     struct proc *p = myproc();
     uint oldsz = p->sz;
     // Expand process size
-    return (void *)5;
+    
     p->sz = p->sz + length;
 
     // new item in linked list
@@ -29,7 +29,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Fill the item
     addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE);
-    
+    return (void *)5;
     r->start_addr = addr;
     r->length = length;
     r->region_type = flags;
