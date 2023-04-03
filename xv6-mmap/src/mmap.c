@@ -33,12 +33,12 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     
 
     
-    r->start_addr = addr;
-    r->length = length;
-    r->region_type = flags;
-    r->offset = offset;
-    r->prot = prot;
-    r->next = 0;
+    // r->start_addr = addr;
+    // r->length = length;
+    // r->region_type = flags;
+    // r->offset = offset;
+    // r->prot = prot;
+    // r->next = 0;
 
     if (p->nregions == 0)
     {
