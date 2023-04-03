@@ -23,13 +23,14 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     // Expand process size
     
     p->sz = p->sz + length;
+    return (void *)5;
 
     // new item in linked list
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
     // Fill the item
     //problem child
-    return (void *)5;
+    
     addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE);
     
     r->start_addr = addr;
