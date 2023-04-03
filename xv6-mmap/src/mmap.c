@@ -47,7 +47,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // p->nregions++;
 
-    return (void *)(p->sz);
+    return (void *)PGROUNDDOWN(p->sz);
 }
 
 int munmap(void *addr, int length)
