@@ -41,7 +41,7 @@ void test() {
   }
 
   printf(1, "XV6_TEST_OUTPUT : mmap good\n");
-    printf(1, "12345\n");
+  printf(1, "XV6_TEST_OUTPUT : 12345\n");
   zeroes = malloc(size);
   memset(zeroes, 0, size);
 
