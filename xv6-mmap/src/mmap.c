@@ -40,12 +40,12 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     // r->prot = prot;
     // r->next = 0;
 
-    if (p->nregions == 0)
-    {
-        p->region_head = r;
-    }
+    // if (p->nregions == 0)
+    // {
+    //     p->region_head = r;
+    // }
 
-    p->nregions++;
+    // p->nregions++;
 
     return (void *)(p->sz);
 }
