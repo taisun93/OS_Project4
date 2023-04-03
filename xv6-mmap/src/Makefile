@@ -7,6 +7,7 @@ OBJS = \
 	ide.o\
 	ioapic.o\
 	kalloc.o\
+	kmalloc.o\
 	mmap.o\
 	kbd.o\
 	lapic.o\
@@ -28,7 +29,7 @@ OBJS = \
 	uart.o\
 	vectors.o\
 	vm.o\
-	kmalloc.o\
+
 
 # Cross-compiling (e.g., on Mac OS X)
 # TOOLPREFIX = i386-jos-elf
