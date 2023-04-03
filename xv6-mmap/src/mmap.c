@@ -19,11 +19,11 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Get pointer to current process
     struct proc *p = myproc();
-    uint oldsz = p->sz;
+    // uint oldsz = p->sz;
     // Expand process size
     
     p->sz = p->sz + length;
-    // return (void *)5;
+    
 
     // new item in linked list
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
@@ -31,6 +31,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     // Fill the item
     //problem child
     
+
     
     r->start_addr = addr;
     r->length = length;
@@ -46,7 +47,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     p->nregions++;
 
-    return p->sz;
+    return (void *)(p->sz);
 }
 
 int munmap(void *addr, int length)
