@@ -29,8 +29,9 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Fill the item
     //problem child
-    addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE);
     return (void *)5;
+    addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE);
+    
     r->start_addr = addr;
     r->length = length;
     r->region_type = flags;
@@ -43,7 +44,6 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
         p->region_head = r;
     }
 
-    // Increment region count and retrun the new region's starting address
     p->nregions++;
 
     return addr;
