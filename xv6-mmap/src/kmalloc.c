@@ -44,6 +44,7 @@ kmfree(void *ap)
 static Header*
 morecore(uint nu)
 {
+    //check less than 4096
   char *p;
   Header *hp;
 
