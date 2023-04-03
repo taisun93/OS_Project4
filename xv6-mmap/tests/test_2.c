@@ -39,7 +39,7 @@ void test() {
     printf(1, "XV6_TEST_OUTPUT : mmap failed\n");
     return;
   }
-
+  printf(1, "test test \n");
   printf(1, "XV6_TEST_OUTPUT : mmap good\n");
   zeroes = malloc(size);
   memset(zeroes, 0, size);
