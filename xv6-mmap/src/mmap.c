@@ -46,7 +46,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     // Increment region count and retrun the new region's starting address
     p->nregions++;
 
-    return r->start_addr;
+    return addr;
 }
 
 int munmap(void *addr, int length)
