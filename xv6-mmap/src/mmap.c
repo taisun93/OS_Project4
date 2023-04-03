@@ -13,7 +13,7 @@
 
 void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
-    return (void *)5;
+    return (void *) length;
 
     if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
     {
