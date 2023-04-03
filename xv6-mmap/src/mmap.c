@@ -7,7 +7,7 @@
 #include "mmu.h"
 #include "proc.h"
 
-#define MMAPBASE 0x40000000
+#define MMAPBASE 0x10000000
 
 void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
@@ -28,6 +28,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
     // Fill the item
+    //problem child
     addr = (void *)(PGROUNDDOWN(oldsz) + MMAPBASE);
     return (void *)5;
     r->start_addr = addr;
