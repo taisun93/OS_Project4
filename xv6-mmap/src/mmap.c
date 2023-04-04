@@ -21,8 +21,11 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     struct proc *p = myproc();
     // uint oldsz = p->sz;
     // Expand process size
-    
-    p->sz = p->sz + length;
+    //incorrect
+    //allocuvm deals with this
+
+    int blah = allocuvm(p->pgdir, p->sz, p->sz+length);
+    // p->sz = p->sz + length;
     
 
     // new item in linked list
@@ -47,7 +50,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // p->nregions++;
 
-    return (void *)PGROUNDDOWN(p->sz);
+    return (void *)PGROUNDDOWN(blah);
 }
 
 int munmap(void *addr, int length)
