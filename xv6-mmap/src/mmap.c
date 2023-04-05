@@ -17,10 +17,10 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Get pointer to current process
     struct proc *p = myproc();
-    uint oldsz = p->sz;
-    uint newsz = oldsz + length;
+    // uint oldsz = p->sz;
+    // uint newsz = oldsz + length;
     // Expand process size
-    // allocuvm(p->pgdir, PGROUNDUP(p->sz), p->sz+length);
+    allocuvm(p->pgdir, PGROUNDUP(p->sz), p->sz+length);
     
     // p->sz = p->sz + length;
 
