@@ -22,7 +22,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     uint oldsz = p->sz;
     uint newsz = oldsz + length;
     // Expand process size
-    return (void *)newsz;
+    // return (void *)newsz;
     int blah = allocuvm(p->pgdir, oldsz, newsz);
     
     // p->sz = p->sz + length;
