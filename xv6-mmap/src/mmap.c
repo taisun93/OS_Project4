@@ -24,7 +24,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     //incorrect
     //allocuvm deals with this
 
-    int blah = allocuvm(p->pgdir, p->sz, p->sz+length);
+    return allocuvm(p->pgdir, p->sz, p->sz+length);
     // p->sz = p->sz + length;
     
 
@@ -50,7 +50,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // p->nregions++;
 
-    return (void *)blah;
+    // return (void *)blah;
 }
 
 int munmap(void *addr, int length)
