@@ -10,17 +10,16 @@
 
 /*Test simple mmap and munmap.
 Test mmap has zeroed the newly mapped anonymous region.*/
-int
-memcmp(const void *v1, const void *v2, uint n)
+int memcmp(const void *v1, const void *v2, uint n)
 {
   const uchar *s1, *s2;
-  
+
   s1 = v1;
   s2 = v2;
-  while(n-- > 0)
+  while (n-- > 0)
   {
-    if(*s1 != *s2)
-     return *s1 - *s2;
+    if (*s1 != *s2)
+      return *s1 - *s2;
 
     s1++, s2++;
   }
@@ -28,22 +27,23 @@ memcmp(const void *v1, const void *v2, uint n)
   return 0;
 }
 
-void test() {
-  int size =  10;
+void test()
+{
+  int size = 10;
   void *zeroes;
 
-  void* res=0;
-  res = mmap(res, size, 0/*prot*/, 0/*flags*/, -1/*fd*/, 0/*offset*/);
-  if (res<=0)
+  void *res = 0;
+  res = mmap(res, size, 0 /*prot*/, 0 /*flags*/, -1 /*fd*/, 0 /*offset*/);
+  if (res <= 0)
   {
     printf(1, "XV6_TEST_OUTPUT : mmap failed\n");
     return;
   }
-
+  printf(1, "adsfsdfdsasasf\n");
   printf(1, "ljksdfhsdfsdsdlfkkl res here %d\n", res);
 
   printf(1, "XV6_TEST_OUTPUT : mmap good\n");
-  
+
   zeroes = malloc(size);
   printf(1, "XV6_TEST_OUTPUT : past malloc\n");
   memset(zeroes, 0, size);
@@ -52,7 +52,8 @@ void test() {
   int ret = memcmp(res, zeroes, size);
   printf(1, "XV6_TEST_OUTPUT : Ret of memcmp %d\n", ret);
 
-  if (ret != 0) {
+  if (ret != 0)
+  {
     printf(1, "XV6_TEST_OUTPUT : mmap() should zero out the  newly mapped anonymous memory region.!!\n");
     return;
   }
@@ -60,7 +61,8 @@ void test() {
   printf(1, "XV6_TEST_OUTPUT : mmap() has correctly cleared the newly mapped anonymous memory region\n");
 
   int rv = munmap(res, size);
-  if (rv < 0) {
+  if (rv < 0)
+  {
     printf(1, "XV6_TEST_OUTPUT : munmap failed\n");
     return;
   }
@@ -69,9 +71,7 @@ void test() {
   return;
 }
 
-
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
   test();
   exit();
