@@ -24,33 +24,33 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     //incorrect
     //allocuvm deals with this
 
-    return allocuvm(p->pgdir, p->sz, p->sz+length);
+    int blah = allocuvm(p->pgdir, p->sz, p->sz+length);
     // p->sz = p->sz + length;
     
 
     // new item in linked list
-    // mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
+    mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
     // Fill the item
     //problem child
     
 
     
-    // r->start_addr = addr;
-    // r->length = length;
-    // r->region_type = flags;
-    // r->offset = offset;
-    // r->prot = prot;
-    // r->next = 0;
+    r->start_addr = addr;
+    r->length = length;
+    r->region_type = flags;
+    r->offset = offset;
+    r->prot = prot;
+    r->next = 0;
 
-    // if (p->nregions == 0)
-    // {
-    //     p->region_head = r;
-    // }
+    if (p->nregions == 0)
+    {
+        p->region_head = r;
+    }
 
     // p->nregions++;
 
-    // return (void *)blah;
+    return (void *)blah;
 }
 
 int munmap(void *addr, int length)
