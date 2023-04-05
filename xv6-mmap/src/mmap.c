@@ -7,7 +7,7 @@
 #include "mmu.h"
 #include "proc.h"
 
-#define MMAPBASE 0x10000000
+#define MMAPBASE 0x40000000
 
 void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
