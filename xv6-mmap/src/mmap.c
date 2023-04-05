@@ -25,8 +25,8 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     // incorrect
     // allocuvm deals with this
     // return (void *)56;
-    if(newsz<PGSIZE){
-        return (void *)42;
+    if(newsz>PGSIZE){
+        return (void *)newsz;
     }
     int blah = allocuvm(p->pgdir, oldsz, newsz);
     // p->sz = p->sz + length;
