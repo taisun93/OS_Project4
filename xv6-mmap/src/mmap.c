@@ -22,13 +22,8 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     uint oldsz = p->sz;
     uint newsz = oldsz + length;
     // Expand process size
-    // incorrect
-    // allocuvm deals with this
-    // return (void *)56;
-    if(newsz>PGSIZE){
-        return (void *)newsz;
-    }
     int blah = allocuvm(p->pgdir, oldsz, newsz);
+    return (void *)newsz;
     // p->sz = p->sz + length;
 
     // new item in linked list
