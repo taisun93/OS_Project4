@@ -20,8 +20,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     uint oldsz = p->sz;
     uint newsz = oldsz + length;
     // Expand process size
-    // return (void *)newsz;
-    int blah = allocuvm(p->pgdir, oldsz, newsz);
+    allocuvm(p->pgdir, PGROUNDUP(p->sz), p->sz+length);
     
     // p->sz = p->sz + length;
 
@@ -44,7 +43,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // p->nregions++;
 
-    return (void *)blah;
+    return (void *)p->sz;
 }
 
 int munmap(void *addr, int length)
