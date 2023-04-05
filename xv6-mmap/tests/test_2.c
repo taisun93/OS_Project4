@@ -40,7 +40,7 @@ void test() {
     return;
   }
 
-  printf(1, "Fucking res here %d\n", res);
+  printf(1, "ljksdfhsdfsdsdlfkkl res here %d\n", res);
 
   printf(1, "XV6_TEST_OUTPUT : mmap good\n");
   
