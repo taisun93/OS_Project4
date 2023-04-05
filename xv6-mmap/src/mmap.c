@@ -11,7 +11,7 @@
 
 void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
-    
+
     if (addr < (void *)0 || addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
     {
         return (void *)-1;
@@ -19,23 +19,21 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Get pointer to current process
     struct proc *p = myproc();
-    // uint oldsz = p->sz;
+    uint oldsz = p->sz;
+    uint newsz = oldsz + length;
     // Expand process size
-    //incorrect
-    //allocuvm deals with this
+    // incorrect
+    // allocuvm deals with this
 
-    int blah = allocuvm(p->pgdir, p->sz, p->sz+length);
+    int blah = allocuvm(p->pgdir, oldsz, newsz);
     // p->sz = p->sz + length;
-    
 
     // new item in linked list
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
     // Fill the item
-    //problem child
-    
+    // problem child
 
-    
     r->start_addr = addr;
     r->length = length;
     r->region_type = flags;
@@ -55,6 +53,6 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
 int munmap(void *addr, int length)
 {
-    
+
     return -1;
 }
