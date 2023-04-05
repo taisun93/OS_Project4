@@ -20,6 +20,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     // uint oldsz = p->sz;
     // uint newsz = oldsz + length;
     // Expand process size
+    cprintf("about to alloc\n");
     allocuvm(p->pgdir, PGROUNDUP(p->sz), p->sz+length);
     
     // p->sz = p->sz + length;
