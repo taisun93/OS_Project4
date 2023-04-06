@@ -39,8 +39,6 @@ void test()
     printf(1, "XV6_TEST_OUTPUT : mmap failed\n");
     return;
   }
-  printf(1, "adsfsdfdsasasf\n");
-  printf(1, "ljksdfhsdfsdsdlfkkl res here %d\n", res);
 
   printf(1, "XV6_TEST_OUTPUT : mmap good\n");
 

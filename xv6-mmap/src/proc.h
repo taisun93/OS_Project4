@@ -74,7 +74,7 @@ struct proc
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
   int nregions;                
-  mmapped_region *region_head; 
+  mmapped_region *first_region; 
 };
 
 // Process memory is laid out contiguously, low addresses first:

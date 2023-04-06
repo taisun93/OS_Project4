@@ -17,19 +17,18 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Get pointer to current process
     struct proc *p = myproc();
-    uint oldsz = (KERNBASE/2);
+    uint oldsz = (KERNBASE / 2);
     uint newsz = oldsz + length;
     // Expand process size
     // printf("about to alloc\n");
     allocuvm(p->pgdir, PGROUNDUP(oldsz), (uint)newsz);
-    
+
     // p->sz = p->sz + length;
 
     // new item in linked list
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
-
-    //fill up
+    // fill up
     r->start_addr = addr;
     r->length = length;
     r->region_type = flags;
@@ -39,16 +38,39 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     if (p->nregions == 0)
     {
-        p->region_head = r;
+        p->first_region = r;
     }
 
-    // p->nregions++;
+    p->nregions++;
 
-    return (void *)newsz;
+    return (void *)newsz; // fix this when I start freeing regions
 }
 
 int munmap(void *addr, int length)
 {
+    struct proc *p = myproc();
+    if ((int)addr % 4096 != 0)
+    {
+        panic("too big");
+    }
+    if (p->nregions == 0)
+    {
+        return -1;
+    }
+
+    mmapped_region *active = p->first_region;
+
+    int counter = p->nregions;
+
+    while (counter > 0)
+    {
+        if(((active->start_addr) == addr) && (active->length = length)){
+            return 1;
+        }
+
+        active = active->next;
+        counter--;
+    }
 
     return -1;
 }
