@@ -17,11 +17,11 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Get pointer to current process
     struct proc *p = myproc();
-    uint oldsz = p->sz;
+    uint oldsz = (KERNBASE/2);
     uint newsz = oldsz + length;
     // Expand process size
     // printf("about to alloc\n");
-    allocuvm(p->pgdir, PGROUNDUP(oldsz+4096), (uint)newsz);
+    allocuvm(p->pgdir, PGROUNDUP(oldsz), (uint)newsz);
     
     // p->sz = p->sz + length;
 
@@ -44,7 +44,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // p->nregions++;
 
-    return (void *)p->sz;
+    return (void *)newsz;
 }
 
 int munmap(void *addr, int length)
