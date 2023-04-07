@@ -67,9 +67,9 @@ int munmap(void *addr, int length)
 
     while (counter < p->nregions)
     {
-        if( (int)(active->start_addr) == (int)addr && (int)(active->length) == (int)length)
+        panic("ahhhhh un map");
+        if ((int)(active->start_addr) == (int)addr && (int)(active->length) == (int)length)
         {
-            
 
             // if (previous == 0)
             // {
@@ -86,7 +86,7 @@ int munmap(void *addr, int length)
 
         if (active->next == 0)
         {
-            //fails here
+            // fails here
             return -1;
         }
         // previous = active;
