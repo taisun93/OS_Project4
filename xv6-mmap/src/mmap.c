@@ -69,12 +69,13 @@ int munmap(void *addr, int length)
                 return 1;
             }
         }
-
-        active = active->next;
-        counter--;
+        
         if(active->next==0){
             return -1;
         }
+        active = active->next;
+        counter--;
+
     }
 
     return -1;
