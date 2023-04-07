@@ -39,7 +39,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     {
         p->first_region = r;
     }
-    //add for subsequent regions
+    // add for subsequent regions
 
     p->nregions++;
 
@@ -64,13 +64,17 @@ int munmap(void *addr, int length)
 
     while (counter < p->nregions)
     {
-        if((active->start_addr) == addr){
-            if((active->length == length)){
-
-                if(previous==0){
+        if ((active->start_addr) == addr)
+        {
+            if ((active->length == length))
+            {
+                return 1;
+                if (previous == 0)
+                {
                     p->first_region = active->next;
                 }
-                else{
+                else
+                {
                     previous->next = active->next;
                 }
                 p->nregions--;
@@ -79,13 +83,13 @@ int munmap(void *addr, int length)
             }
         }
 
-        if(active->next==0){
+        if (active->next == 0)
+        {
             return -1;
         }
         previous = active;
         active = active->next;
         counter++;
-
     }
 
     return -1;
