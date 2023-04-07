@@ -92,6 +92,7 @@ int munmap(void *addr, int length)
                 {
                     previous->next = active->next;
                 }
+                kmfree(active);
                 p->nregions--;
 
                 return 42;
