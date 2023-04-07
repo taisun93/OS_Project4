@@ -21,7 +21,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     uint newsz = oldsz + length;
     // Expand process size
     // printf("about to alloc\n");
-    // allocuvm(p->pgdir, PGROUNDUP(oldsz), (uint)newsz);
+    allocuvm(p->pgdir, PGROUNDUP(oldsz), newsz);
 
     // p->sz = p->sz + length;
 
@@ -41,7 +41,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
         p->first_region = r;
     }
 
-    p->nregions = 1;
+    p->nregions++;
 
     return (void *)newsz; // fix this when I start freeing regions
 }
