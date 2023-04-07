@@ -47,6 +47,7 @@ void test()
 
   int ret = memcmp(res, zeroes, size);
   printf(1, "XV6_TEST_OUTPUT : Ret of memcmp %d\n", ret);
+  printf(1, "fdsd;lksdfk;ds;lk\n");
 
   if (ret != 0)
   {
