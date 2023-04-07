@@ -49,19 +49,14 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
 int munmap(void *addr, int length)
 {
-    // return length;
     struct proc *p = myproc();
-    // if ((int)addr % 4096 != 0)
-    // {
-    //     panic("too big");
-    // }
     if (p->nregions == 0)
     {
         return -1;
     }
 
     mmapped_region *active = p->first_region;
-    // mmapped_region *previous = 0;
+    mmapped_region *previous = 0;
     int counter = 0;
 
     while (counter < p->nregions)
@@ -77,19 +72,22 @@ int munmap(void *addr, int length)
 
             if ((active->length) == length)
             {
-                return 7;
+
+                deallocuvm(p->pgdir, active->start_addr, active->length);
+                // first node
+                if (previous == 0)
+                {
+                    p->first_region = active->next;
+                }
+                // not first node
+                else
+                {
+                    previous->next = active->next;
+                }
+                p->nregions--;
+
+                return 42;
             }
-
-            // if (previous == 0)
-            // {
-            //     p->first_region = active->next;
-            // }
-            // else
-            // {
-            //     previous->next = active->next;
-            // }
-            p->nregions--;
-
         }
 
         if (active->next == 0)
