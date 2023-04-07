@@ -66,7 +66,7 @@ static void ll_delete(mmapped_region *node, mmapped_region *prev)
     kmfree(node);
 }
 
-int munmap(void *addr, uint length)
+int munmap(void *addr, int length)
 {
     // Sanity check on addr and length
     if (addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
