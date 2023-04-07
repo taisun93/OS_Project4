@@ -73,7 +73,7 @@ int munmap(void *addr, int length)
             if ((active->length) == length)
             {
 
-                deallocuvm(p->pgdir, active->start_addr, active->length);
+                deallocuvm(p->pgdir, (int) active->start_addr, active->length);
                 // first node
                 if (previous == 0)
                 {
