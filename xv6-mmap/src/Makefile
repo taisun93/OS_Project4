@@ -185,6 +185,7 @@ UPROGS=\
 	_wc\
 	_zombie\
 	_xv6_2\
+	_buggy\
 
 
 fs.img: mkfs README $(UPROGS)
@@ -253,7 +254,7 @@ qemu-nox-gdb: fs.img xv6.img .gdbinit
 # check in that version.
 
 EXTRA=\
-	mkfs.c xv6_2.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
+	mkfs.c xv6_2.c buggy.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
 	printf.c umalloc.c\
 	kmalloc.c\
