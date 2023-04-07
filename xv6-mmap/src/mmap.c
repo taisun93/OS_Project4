@@ -73,6 +73,7 @@ int munmap(void *addr, int length)
                 else{
                     previous->next = active->next;
                 }
+                p->nregions--;
 
                 return 1;
             }
