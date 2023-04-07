@@ -48,7 +48,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
 int munmap(void *addr, int length)
 {
-    return length;
+    // return length;
     struct proc *p = myproc();
     // if ((int)addr % 4096 != 0)
     // {
@@ -65,13 +65,14 @@ int munmap(void *addr, int length)
 
     while (counter < p->nregions)
     {
+        return((int)(active -> length));
         // cprintf((char*) (p->nregions));
-        if ((int)(active->start_addr) == (int)addr && (int)(active->length) == (int)length)
+        if ((active->start_addr) == addr && (active->length) == length)
         {
             //xv6_2
             //git pull && make clean && make qemu-nox
 
-            return((int)(length));
+            
 
             // if (previous == 0)
             // {
