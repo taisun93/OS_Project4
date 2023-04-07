@@ -81,7 +81,7 @@ int munmap(void *addr, int length)
             if ((active->length) == length)
             {
 
-                deallocuvm(p->pgdir, PGROUNDUP((int)addr + length), PGROUNDUP((int)addr));
+                deallocuvm(p->pgdir, PGROUNDUP((int)addr), PGROUNDUP((int)addr-length));
                 // first node
                 if (previous == 0)
                 {
@@ -101,7 +101,6 @@ int munmap(void *addr, int length)
 
         if (active->next == 0)
         {
-            // fails here
             return -1;
         }
         // previous = active;
