@@ -17,7 +17,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Get pointer to current process
     struct proc *p = myproc();
-    uint oldsz = (KERNBASE / 2);
+    uint oldsz = (KERNBASE / 4);
     uint newsz = oldsz + length;
     // Expand process size
     // printf("about to alloc\n");
