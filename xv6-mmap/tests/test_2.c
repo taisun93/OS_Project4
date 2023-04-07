@@ -55,8 +55,9 @@ void test()
   }
 
   printf(1, "XV6_TEST_OUTPUT : mmap() has correctly cleared the newly mapped anonymous memory region\n");
-
+  printf(1, "given size here size: %d\n", size);
   int rv = munmap(res, size);
+  printf(1, "given size here size: %d\n", size);
   printf(1, "size: %d\n", rv);
   if (rv < 0)
   {
