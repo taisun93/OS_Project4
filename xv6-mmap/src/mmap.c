@@ -23,8 +23,6 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     // Expand process size
     allocuvm(p->pgdir, PGROUNDUP(oldsz), PGROUNDUP(newsz));
 
-    // p->sz = p->sz + length;
-
     // new item in linked list
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
@@ -40,7 +38,18 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     {
         p->first_region = r;
     }
-    // add for subsequent regions
+    else
+    {
+        //can probably just use this instead of the if statement but be safe for now
+        int i;
+        mmapped_region * active = p->first_region;
+
+        for (i = 0; i < p->nregions; i++)
+        {
+            active = active->next;
+        }
+        active->next = r;
+    }
 
     p->nregions++;
 
@@ -67,12 +76,12 @@ int munmap(void *addr, int length)
         {
 
             // xv6_2
-            //make clean && make qemu-nox
+            // make clean && make qemu-nox
 
             if ((active->length) == length)
             {
 
-                deallocuvm(p->pgdir, PGROUNDUP((int) addr + length), PGROUNDUP((int)addr));
+                deallocuvm(p->pgdir, PGROUNDUP((int)addr + length), PGROUNDUP((int)addr));
                 // first node
                 if (previous == 0)
                 {

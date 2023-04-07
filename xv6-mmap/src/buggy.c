@@ -30,7 +30,7 @@ void test() {
     printf(1, "XV6_TEST_OUTPUT : munmap failed\n");
     return;
   }
-
+  printf(1, "XV6_TEST_OUTPUT : munmap returned\n");
   return;
 }
 
