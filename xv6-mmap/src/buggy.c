@@ -42,6 +42,7 @@ main(int argc, char *argv[])
 
   for(i=1;i<=100;i++)
   {
+    printf(1, "go buggy go\n");
     test();
   }
   
