@@ -61,7 +61,7 @@ int munmap(void *addr, int length)
     mmapped_region *active = p->first_region;
     // mmapped_region *previous = 0;
     int counter = 0;
-    return (int)active->start_addr;
+
     while (counter < p->nregions)
     {
         // cprintf((char*) (p->nregions));
@@ -69,7 +69,7 @@ int munmap(void *addr, int length)
         {
             //xv6_2
 
-            return((int)(active->start_addr));
+            return((int)(active->length));
 
             // if (previous == 0)
             // {
