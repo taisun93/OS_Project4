@@ -21,7 +21,6 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     uint newsz = oldsz + length;
     // Expand process size
     allocuvm(p->pgdir, PGROUNDUP(oldsz), PGROUNDUP(newsz));
-    // allocuvm(p->pgdir, (uint)20000, (uint)23000);
 
     // p->sz = p->sz + length;
 
@@ -65,9 +64,13 @@ int munmap(void *addr, int length)
 
     while (counter > 0)
     {
-        if(((active->start_addr) == addr) && (active->length = length)){
+        if((active->start_addr) == addr)){
             return 1;
         }
+
+        // if(( && (active->length = length)){
+        //     return 1;
+        // }
 
         active = active->next;
         counter--;
