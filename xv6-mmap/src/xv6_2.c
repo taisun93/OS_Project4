@@ -47,7 +47,6 @@ void test()
 
   int ret = memcmp(res, zeroes, size);
   printf(1, "XV6_TEST_OUTPUT : Ret of memcmp %d\n", ret);
-  printf(1, "fdsd;lksdfk;ds;lk\n");
 
   if (ret != 0)
   {
@@ -56,9 +55,10 @@ void test()
   }
 
   printf(1, "XV6_TEST_OUTPUT : mmap() has correctly cleared the newly mapped anonymous memory region\n");
-
+  printf(1, "given size here size: %d\n", size);
   int rv = munmap(res, size);
-  printf(1, "blah blasdafsdsdasdafh %d\n", rv);
+  printf(1, "given size here size: %d\n", size);
+  printf(1, "size: %d\n", rv);
   if (rv < 0)
   {
     printf(1, "XV6_TEST_OUTPUT : munmap failed\n");
