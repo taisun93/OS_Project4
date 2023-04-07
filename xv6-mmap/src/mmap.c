@@ -49,10 +49,10 @@ int munmap(void *addr, int length)
 {
     return 1;
     struct proc *p = myproc();
-    if ((int)addr % 4096 != 0)
-    {
-        panic("too big");
-    }
+    // if ((int)addr % 4096 != 0)
+    // {
+    //     panic("too big");
+    // }
     if (p->nregions == 0)
     {
         return -1;
@@ -69,7 +69,7 @@ int munmap(void *addr, int length)
                 return 1;
             }
         }
-        
+
         if(active->next==0){
             return -1;
         }
