@@ -60,9 +60,9 @@ int munmap(void *addr, int length)
 
     mmapped_region *active = p->first_region;
 
-    int counter = p->nregions;
+    int counter = 0;
 
-    while (counter > 0)
+    while (counter < p->nregions)
     {
         if((active->start_addr) == addr){
             if((active->length == length)){
@@ -74,7 +74,7 @@ int munmap(void *addr, int length)
             return -1;
         }
         active = active->next;
-        counter--;
+        counter++;
 
     }
 
