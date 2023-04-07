@@ -21,13 +21,14 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     uint oldsz = MMAPBASE;
     uint newsz = oldsz + length;
     // Expand process size
-    allocuvm(p->pgdir, PGROUNDUP(oldsz), PGROUNDUP(newsz));
+    allocuvm(p->pgdir, PGROUNDUP(oldsz), newsz);
+    //check for fail
 
     // new item in linked list
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
     // fill up
-    r->start_addr = (void *)oldsz;
+    r->start_addr = (void *)PGROUNDUP(oldsz);
     r->length = length;
     r->region_type = flags;
     r->offset = offset;
@@ -40,9 +41,9 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     }
     else
     {
-        //can probably just use this instead of the if statement but be safe for now
+        // can probably just use this instead of the if statement but be safe for now
         int i;
-        mmapped_region * active = p->first_region;
+        mmapped_region *active = p->first_region;
 
         for (i = 0; i < p->nregions; i++)
         {
@@ -71,7 +72,7 @@ int munmap(void *addr, int length)
     while (counter < p->nregions)
     {
 
-        return (int)(active->start_addr);
+        // return (int)(active->start_addr);
         if ((active->start_addr) == addr)
         {
 
@@ -81,7 +82,8 @@ int munmap(void *addr, int length)
             if ((active->length) == length)
             {
 
-                deallocuvm(p->pgdir, PGROUNDUP((int)addr), PGROUNDUP((int)addr-length));
+                deallocuvm(p->pgdir, PGROUNDUP((int)addr), PGROUNDUP((int)addr - length));
+                // deallocuvm(p->pgdir, PGROUNDUP((int)addr + length), PGROUNDUP((int)addr));
                 // first node
                 if (previous == 0)
                 {
