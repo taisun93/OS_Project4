@@ -69,7 +69,7 @@ int munmap(void *addr, int length)
         {
             //xv6_2
 
-            return((int)(active->length));
+            return((int)(length));
 
             // if (previous == 0)
             // {
