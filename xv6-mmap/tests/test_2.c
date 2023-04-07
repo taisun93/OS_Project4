@@ -43,9 +43,7 @@ void test()
   printf(1, "XV6_TEST_OUTPUT : mmap good\n");
 
   zeroes = malloc(size);
-  printf(1, "XV6_TEST_OUTPUT : past malloc\n");
   memset(zeroes, 0, size);
-  printf(1, "XV6_TEST_OUTPUT : past memset\n");
 
   int ret = memcmp(res, zeroes, size);
   printf(1, "XV6_TEST_OUTPUT : Ret of memcmp %d\n", ret);
