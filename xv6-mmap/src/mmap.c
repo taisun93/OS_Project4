@@ -48,7 +48,6 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
 int munmap(void *addr, int length)
 {
-    return 1;
     struct proc *p = myproc();
     if ((int)addr % 4096 != 0)
     {
@@ -71,6 +70,9 @@ int munmap(void *addr, int length)
 
         active = active->next;
         counter--;
+        if(active->next==0){
+            return -1;
+        }
     }
 
     return -1;
