@@ -72,10 +72,13 @@ int munmap(void *addr, int length)
         if ((active->start_addr) == addr)
         {
 
-            //xv6_2
-            //git pull && make clean && make qemu-nox
+            // xv6_2
+            // git pull && make clean && make qemu-nox
 
-            
+            if ((active->length) == length)
+            {
+                return 7;
+            }
 
             // if (previous == 0)
             // {
@@ -87,10 +90,6 @@ int munmap(void *addr, int length)
             // }
             p->nregions--;
 
-            return 69;
-        }
-        if((active->length) == length){
-            return 7;
         }
 
         if (active->next == 0)
