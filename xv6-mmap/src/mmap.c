@@ -59,13 +59,21 @@ int munmap(void *addr, int length)
     }
 
     mmapped_region *active = p->first_region;
-
+    mmapped_region *previous = 0;
     int counter = 0;
 
     while (counter < p->nregions)
     {
         if((active->start_addr) == addr){
             if((active->length == length)){
+
+                if(previous==0){
+                    p->first_region = active->next;
+                }
+                else{
+                    previous->next = active->next;
+                }
+
                 return 1;
             }
         }
