@@ -66,9 +66,10 @@ int munmap(void *addr, int length)
     {
         if ((active->start_addr) == addr)
         {
+            return 1;
             if ((active->length == length))
             {
-                return 1;
+                
                 if (previous == 0)
                 {
                     p->first_region = active->next;
@@ -85,7 +86,6 @@ int munmap(void *addr, int length)
 
         if (active->next == 0)
         {
-            return 1;
             return -1;
         }
         previous = active;
