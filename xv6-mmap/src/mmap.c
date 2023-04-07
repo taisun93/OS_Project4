@@ -7,6 +7,7 @@
 #include "mmu.h"
 #include "proc.h"
 
+#define MMAPBASE (KERNBASE / 2)
 void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 {
 
@@ -17,7 +18,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     // Get pointer to current process
     struct proc *p = myproc();
-    uint oldsz = (KERNBASE / 2);
+    uint oldsz = MMAPBASE;
     uint newsz = oldsz + length;
     // Expand process size
     allocuvm(p->pgdir, PGROUNDUP(oldsz), PGROUNDUP(newsz));
@@ -28,7 +29,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
     // fill up
-    r->start_addr = addr;
+    r->start_addr = (addr = (void*)(PGROUNDDOWN(oldsz) + MMAPBASE));
     r->length = length;
     r->region_type = flags;
     r->offset = offset;
