@@ -29,7 +29,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
 
     // fill up
-    r->start_addr = (addr = (void*)(PGROUNDDOWN(oldsz) + MMAPBASE));
+    r->start_addr = (void *)oldsz;
     r->length = length;
     r->region_type = flags;
     r->offset = offset;
@@ -44,7 +44,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     p->nregions++;
 
-    return addr; // fix this when I start freeing regions
+    return r->start_addr; // fix this when I start freeing regions
 }
 
 int munmap(void *addr, int length)
