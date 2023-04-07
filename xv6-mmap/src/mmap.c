@@ -41,7 +41,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
         p->first_region = r;
     }
 
-    p->nregions++;
+    p->nregions = 1;
 
     return (void *)newsz; // fix this when I start freeing regions
 }
