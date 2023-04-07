@@ -37,6 +37,7 @@ void test() {
 int
 main(int argc, char *argv[])
 {
+  printf(1, "start the buggy\n");
   int i;
 
   for(i=1;i<=100;i++)
