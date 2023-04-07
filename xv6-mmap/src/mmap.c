@@ -88,7 +88,7 @@ int munmap(void *addr, int length)
             return 1;
         }
         if((active->length) == length){
-            return 1;
+            return 7;
         }
 
         if (active->next == 0)
