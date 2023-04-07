@@ -64,9 +64,12 @@ int munmap(void *addr, int length)
     return (int)active->start_addr;
     while (counter < p->nregions)
     {
-        cprintf((char*) (p->nregions));
+        // cprintf((char*) (p->nregions));
         if ((int)(active->start_addr) == (int)addr && (int)(active->length) == (int)length)
         {
+            //xv6_2
+
+            return((active->start_addr));
 
             // if (previous == 0)
             // {
