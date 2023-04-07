@@ -43,7 +43,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
 
     p->nregions++;
 
-    return (void *)addr; // fix this when I start freeing regions
+    return addr; // fix this when I start freeing regions
 }
 
 int munmap(void *addr, int length)
