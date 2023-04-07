@@ -20,8 +20,8 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     uint oldsz = (KERNBASE / 4);
     uint newsz = oldsz + length;
     // Expand process size
-    // printf("about to alloc\n");
-    allocuvm(p->pgdir, PGROUNDUP(oldsz), newsz);
+    // allocuvm(p->pgdir, PGROUNDUP(oldsz), newsz);
+    allocuvm(p->pgdir, 9000, newsz);
 
     // p->sz = p->sz + length;
 
