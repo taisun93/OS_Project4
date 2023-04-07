@@ -62,18 +62,17 @@ int munmap(void *addr, int length)
     while (counter < p->nregions)
     {
 
-        // cprintf((char*) (p->nregions));
         return (int)(active->start_addr);
         if ((active->start_addr) == addr)
         {
 
             // xv6_2
-            // git pull && make clean && make qemu-nox
+            //make clean && make qemu-nox
 
             if ((active->length) == length)
             {
 
-                deallocuvm(p->pgdir, (int) addr, ((int)addr-length));
+                deallocuvm(p->pgdir, ((int) addr + length), ((int)addr));
                 // first node
                 if (previous == 0)
                 {
