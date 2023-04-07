@@ -65,12 +65,10 @@ int munmap(void *addr, int length)
     while (counter > 0)
     {
         if((active->start_addr) == addr){
-            return 1;
+            if((active->length == length)){
+                return 1;
+            }
         }
-
-        // if(( && (active->length = length)){
-        //     return 1;
-        // }
 
         active = active->next;
         counter--;
