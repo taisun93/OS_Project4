@@ -46,52 +46,97 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     return (void *)newsz; // fix this when I start freeing regions
 }
 
-int munmap(void *addr, int length)
+static void ll_delete(mmapped_region *node, mmapped_region *prev)
 {
+    if (node == myproc()->first_region)
+    {
+        if (myproc()->first_region->next != 0)
+        {
+            myproc()->first_region = myproc()->first_region->next;
+        }
+        else
+        {
+            myproc()->first_region = 0;
+        }
+    }
+    else
+    {
+        prev->next = node->next;
+    }
+    kmfree(node);
+}
+
+int munmap(void *addr, uint length)
+{
+    // Sanity check on addr and length
+    if (addr == (void *)KERNBASE || addr > (void *)KERNBASE || length < 1)
+    {
+        return -1;
+    }
+
     struct proc *p = myproc();
-    // if ((int)addr % 4096 != 0)
-    // {
-    //     panic("too big");
-    // }
+
+    // If nothing has been allocated, there is nothing to munmap
     if (p->nregions == 0)
     {
         return -1;
     }
 
-    mmapped_region *active = p->first_region;
-    // mmapped_region *previous = 0;
-    int counter = 0;
-    if(active->start_addr == addr){
-        return 4;
+    // Travese our mmap dll to see if address and length are valid
+    mmapped_region *prev = p->first_region;
+    mmapped_region *next = p->first_region->next;
+    int size = 0;
+
+    // Check the head
+    if (p->first_region->start_addr == addr && p->first_region->length == length)
+    {
+        /*deallocate the memory from the current process*/
+        p->sz = deallocuvm(p->pgdir, p->sz, p->sz - length);
+        switchuvm(p);
+        p->nregions--;
+
+
+        if (p->first_region->next != 0)
+        {
+            /* Calls to kmfree were changing the node->next's length value
+             * in the linked-list. This is a hacky fix, but I don't know
+             * what is really causing that problem... */
+            size = p->first_region->next->length;
+            ll_delete(p->first_region, 0);
+            p->first_region->length = size;
+        }
+        else
+        {
+            ll_delete(p->first_region, 0);
+        }
+
+        /*return success*/
+        return 0;
     }
 
-    while (counter < p->nregions)
+    while (next != 0)
     {
-        if( (int)(active->start_addr) == (int)addr && (int)(active->length) == (int)length)
+        if (next->start_addr == addr && next->length == length)
         {
-            
-
-            // if (previous == 0)
-            // {
-            //     p->first_region = active->next;
-            // }
-            // else
-            // {
-            //     previous->next = active->next;
-            // }
+            /*deallocate the memory from the current process*/
+            p->sz = deallocuvm(p->pgdir, p->sz, p->sz - length);
+            switchuvm(p);
             p->nregions--;
 
-            return 1;
-        }
+            // close the file we were mapping to
 
-        if (active->next == 0)
-        {
-            return -1;
+            /*remove the node from our ll*/
+            size = next->next->length;
+            ll_delete(next, prev);
+            prev->next->length = size;
+
+            /*return success*/
+            return 0;
         }
-        // previous = active;
-        active = active->next;
-        counter++;
+        prev = next;
+        next = prev->next;
     }
 
+    // if there was no match, return -1
     return -1;
 }
