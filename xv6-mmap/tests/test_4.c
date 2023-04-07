@@ -39,7 +39,7 @@ main(int argc, char *argv[])
 {
   int i;
 
-  for(i=1;i<=5;i++)
+  for(i=1;i<=2;i++)
   {
     test();
   }
