@@ -68,6 +68,7 @@ int munmap(void *addr, int length)
         if ((int)(active->start_addr) == (int)addr && (int)(active->length) == (int)length)
         {
             //xv6_2
+            //git pull && make clean && make qemu-nox
 
             return((int)(length));
 
