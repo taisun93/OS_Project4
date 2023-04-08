@@ -15,7 +15,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     {
         return (void *)-1;
     }
-
+    //remember to test fork.
     // Get pointer to current process
     struct proc *p = myproc();
     uint oldsz = MMAPBASE;
