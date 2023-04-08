@@ -30,19 +30,17 @@ void test() {
     printf(1, "XV6_TEST_OUTPUT : munmap failed\n");
     return;
   }
-  printf(1, "XV6_TEST_OUTPUT : munmap returned\n");
+
   return;
 }
 
 int
 main(int argc, char *argv[])
 {
-  printf(1, "start the buggy\n");
   int i;
 
   for(i=1;i<=100;i++)
   {
-    printf(1, "go buggy go %d\n", i);
     test();
   }
   
