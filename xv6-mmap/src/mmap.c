@@ -37,6 +37,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     r->prot = prot;
     r->next = 0;
 
+    int total_length = length;
     if (p->nregions == 0)
     {
         p->first_region = r;
@@ -50,14 +51,14 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
         for (i = 0; i < p->nregions; i++)
         {
             active = active->next;
-            r->length += PGROUNDUP(active->length);
+            total_length += PGROUNDUP(active->length);
             r->start_addr += PGROUNDUP(active->length);
         }
         active->next = r;
     }
     uint start = (uint)r->start_addr;
-    uint longlong = r->length;
-    allocuvm(p->pgdir, start, start+longlong);
+    
+    allocuvm(p->pgdir, start, start+total_length);
     p->nregions++;
 
     return r->start_addr; // fix this when I start freeing regions
