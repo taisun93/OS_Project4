@@ -55,7 +55,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
         }
         active->next = r;
     }
-    allocuvm(p->pgdir, PGROUNDUP(oldsz), newsz);
+    allocuvm(p->pgdir, r->start_addr, r->start_addr + r->length);
     p->nregions++;
 
     return r->start_addr; // fix this when I start freeing regions
