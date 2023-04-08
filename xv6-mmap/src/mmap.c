@@ -15,14 +15,16 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     {
         return (void *)-1;
     }
-    //remember to test fork.
-    // Get pointer to current process
+    // remember to test fork.
+    //  Get pointer to current process
     struct proc *p = myproc();
     uint oldsz = MMAPBASE;
     uint newsz = oldsz + length;
-    // Expand process size
-    allocuvm(p->pgdir, PGROUNDUP(oldsz), newsz);
-    //check for fail
+    
+    
+    // check for fail
+
+    uint total_length = 0;
 
     // new item in linked list
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
@@ -48,10 +50,11 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
         for (i = 0; i < p->nregions; i++)
         {
             active = active->next;
+            r->length += PGROUNDUP(active->length);
         }
         active->next = r;
     }
-
+    allocuvm(p->pgdir, PGROUNDUP(oldsz), newsz);
     p->nregions++;
 
     return r->start_addr; // fix this when I start freeing regions
