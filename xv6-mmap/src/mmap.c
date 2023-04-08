@@ -55,7 +55,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
         }
         active->next = r;
     }
-    uint start = r->start_addr;
+    uint start = (uint)r->start_addr;
     uint longlong = r->length;
     allocuvm(p->pgdir, start, start+longlong);
     p->nregions++;
