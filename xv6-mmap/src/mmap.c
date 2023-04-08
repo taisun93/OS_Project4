@@ -24,7 +24,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     
     // check for fail
 
-    uint total_length = 0;
+    // uint total_length = 0;
 
     // new item in linked list
     mmapped_region *r = (mmapped_region *)kmalloc(sizeof(mmapped_region));
@@ -51,6 +51,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
         {
             active = active->next;
             r->length += PGROUNDUP(active->length);
+            r->start_addr += PGROUNDUP(active->length);
         }
         active->next = r;
     }
