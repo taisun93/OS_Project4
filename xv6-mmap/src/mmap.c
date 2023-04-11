@@ -15,7 +15,7 @@ void *mmap(void *addr, int length, int prot, int flags, int fd, int offset)
     {
         return (void *)-1;
     }
-    // remember to test fork.
+    
     struct proc *p = myproc();
 
     // uint total_length = 0;
