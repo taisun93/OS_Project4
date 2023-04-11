@@ -69,6 +69,14 @@ void            kfree(char*);
 void            kinit1(void*, void*);
 void            kinit2(void*, void*);
 
+// kmalloc.c
+void*           kmalloc(uint);
+void            kmfree(void*);
+
+//mmap.c
+void*           mmap(void *, int, int, int, int, int);
+int             munmap(void *, int);
+
 // kbd.c
 void            kbdintr(void);
 

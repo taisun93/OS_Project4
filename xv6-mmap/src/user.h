@@ -24,11 +24,6 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 
-void* kmalloc(int size);
-void kmfree(void* addr);
-void* mmap(void *addr, int length, uint prot, uint flags, uint fd, uint offset);
-int munmap(void *addr, int length);
-
 // ulib.c
 int stat(const char*, struct stat*);
 char* strcpy(char*, const char*);
