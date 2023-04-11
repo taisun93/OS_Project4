@@ -1,3 +1,0 @@
-XV6_TEST_OUTPUT : mmap good
-XV6_TEST_OUTPUT : strlen(r) = 8191
-XV6_TEST_OUTPUT : munmap good
