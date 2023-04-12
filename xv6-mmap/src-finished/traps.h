@@ -36,3 +36,6 @@
 #define IRQ_ERROR       19
 #define IRQ_SPURIOUS    31
 
+#define T_ERR_PGFLT_P   0x1    
+#define T_ERR_PGFLT_W   0X2    
+#define T_ERR_PGFLT_U   0x4
